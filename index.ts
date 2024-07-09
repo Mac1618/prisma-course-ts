@@ -35,8 +35,25 @@ const main = async () => {
 	// console.log(article);
 
 	// GET all articles
-	const GetArticles = await prisma.article.findMany();
-	console.log(GetArticles);
+	// const GetArticles = await prisma.article.findMany();
+	// console.log(GetArticles);
+
+	// Create a USER and ARTICLE and ASSOCIATE
+	const user = await prisma.user.create({
+		data: {
+			name: 'Sarah Smith',
+			email: 'sarah@gmail.com',
+
+			// Created Article and Associate with Sarah
+			articles: {
+				create: {
+					title: 'Sarah Article',
+					body: 'This article is created by sarah',
+				},
+			},
+		},
+	});
+	console.log(user);
 };
 
 // call to run the function
