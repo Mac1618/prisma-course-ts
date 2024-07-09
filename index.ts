@@ -39,21 +39,29 @@ const main = async () => {
 	// console.log(GetArticles);
 
 	// Create a USER and ARTICLE and ASSOCIATE
-	const user = await prisma.user.create({
-		data: {
-			name: 'Sarah Smith',
-			email: 'sarah@gmail.com',
+	// const user = await prisma.user.create({
+	// 	data: {
+	// 		name: 'Sarah Smith',
+	// 		email: 'sarah@gmail.com',
 
-			// Created Article and Associate with Sarah
-			articles: {
-				create: {
-					title: 'Sarah Article',
-					body: 'This article is created by sarah',
-				},
-			},
+	// 		// Created Article and Associate with Sarah
+	// 		articles: {
+	// 			create: {
+	// 				title: 'Sarah Article',
+	// 				body: 'This article is created by sarah',
+	// 			},
+	// 		},
+	// 	},
+	// });
+	// console.log(user);
+
+	// Add Articles with Users in query
+	const users = await prisma.user.findMany({
+		include: {
+			articles: true,
 		},
 	});
-	console.log(user);
+	console.log(users);
 };
 
 // call to run the function
