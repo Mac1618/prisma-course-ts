@@ -6,13 +6,17 @@ const prisma = new PrismaClient();
 
 const main = async () => {
 	// CREATE User
-	const user = await prisma.user.create({
-		data: {
-			name: 'John Doe',
-			email: 'john@gmail.com',
-		},
-	});
-	console.log(user);
+	// const user = await prisma.user.create({
+	// 	data: {
+	// 		name: 'John Doe',
+	// 		email: 'john@gmail.com',
+	// 	},
+	// });
+	// console.log(user);
+
+	// GET all users
+	const GetUsers = await prisma.user.findMany();
+	console.log(GetUsers);
 };
 
 // call to run the function
