@@ -35,8 +35,8 @@ const main = async () => {
 	// console.log(article);
 
 	// GET all articles
-	const GetArticles = await prisma.article.findMany();
-	console.log(GetArticles);
+	// const GetArticles = await prisma.article.findMany();
+	// console.log(GetArticles);
 
 	// Create a USER and ARTICLE and ASSOCIATE
 	// const user = await prisma.user.create({
@@ -56,29 +56,41 @@ const main = async () => {
 	// console.log(user);
 
 	// Add Articles with Users in query
-	// const users = await prisma.user.findMany({
-	// 	// includes articles associated to that user
-	// 	include: {
-	// 		articles: true,
-	// 	},
-	// });
+	const users = await prisma.user.findMany({
+		// includes articles associated to that user
+		include: {
+			articles: true,
+		},
+	});
 	// console.log(users);
 
 	// Create an ARTICLE and USER and ASSOCIATE them
-	const article = await prisma.article.create({
-		data: {
-			title: 'Simple Article',
-			body: 'This is a simple article',
+	// const article = await prisma.article.create({
+	// 	data: {
+	// 		title: 'Simple Article',
+	// 		body: 'This is a simple article',
 
-			// Associate this new article to user with id of 2
-			author: {
-				connect: {
-					id: 2,
-				},
-			},
-		},
+	// 		// Associate this new article to user with id of 2
+	// 		author: {
+	// 			connect: {
+	// 				id: 2,
+	// 			},
+	// 		},
+	// 	},
+	// });
+	// console.log(article);
+
+	// Loop through all the Users with that user Articles
+	users.forEach((user) => {
+		console.log(`Name: ${user.name}, Email: ${user.email}`);
+		console.log('Articles:');
+
+		// Articles of that specific user
+		user.articles.forEach((article) => {
+			console.log(`- Title: ${article.title}, Body: ${article.body}`);
+		});
+		console.log('\n');
 	});
-	console.log(article);
 };
 
 // call to run the function
