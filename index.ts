@@ -19,20 +19,24 @@ const main = async () => {
 	// console.log(GetUsers);
 
 	// Create article and associate it with user
-	const article = await prisma.article.create({
-		data: {
-			title: 'John First Article',
-			body: 'The article author is john',
+	// const article = await prisma.article.create({
+	// 	data: {
+	// 		title: 'John First Article',
+	// 		body: 'The article author is john',
 
-			// Associate the article to user with id of 1
-			author: {
-				connect: {
-					id: 1,
-				},
-			},
-		},
-	});
-	console.log(article);
+	// 		// Associate the article to user with id of 1
+	// 		author: {
+	// 			connect: {
+	// 				id: 1,
+	// 			},
+	// 		},
+	// 	},
+	// });
+	// console.log(article);
+
+	// GET all articles
+	const GetArticles = await prisma.article.findMany();
+	console.log(GetArticles);
 };
 
 // call to run the function
