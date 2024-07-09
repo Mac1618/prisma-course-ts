@@ -1,0 +1,35 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// what generates 'prisma client' for you
+// you can use languages that prisma support e.g. js, ts, go, rust etc.
+generator client {
+  provider = "prisma-client-js"
+}
+
+// provide - database type || url - database url/ key
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// Models
+model User {
+  id Int @id @default(autoincrement())
+  email String @unique
+  name String? 
+
+  // field that store the particular article of specific user
+  // [] - means it will store multiple articles
+  articles Article[]
+}
+
+model Article {
+  id Int @id @default(autoincrement())
+  title String
+  body String?
+
+  // Relationship to User
+  author User @relation(fields: [authorId], references: [id])
+  authorId Int
+}
