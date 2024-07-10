@@ -56,12 +56,12 @@ const main = async () => {
 	// console.log(user);
 
 	// Add Articles with Users in query
-	const users = await prisma.user.findMany({
-		// includes articles associated to that user
-		include: {
-			articles: true,
-		},
-	});
+	// const users = await prisma.user.findMany({
+	// 	// includes articles associated to that user
+	// 	include: {
+	// 		articles: true,
+	// 	},
+	// });
 	// console.log(users);
 
 	// Create an ARTICLE and USER and ASSOCIATE them
@@ -81,16 +81,39 @@ const main = async () => {
 	// console.log(article);
 
 	// Loop through all the Users with that user Articles
-	users.forEach((user) => {
-		console.log(`Name: ${user.name}, Email: ${user.email}`);
-		console.log('Articles:');
+	// users.forEach((user) => {
+	// 	console.log(`Name: ${user.name}, Email: ${user.email}`);
+	// 	console.log('Articles:');
 
-		// Articles of that specific user
-		user.articles.forEach((article) => {
-			console.log(`- Title: ${article.title}, Body: ${article.body}`);
-		});
-		console.log('\n');
+	// 	// Articles of that specific user
+	// 	user.articles.forEach((article) => {
+	// 		console.log(`- Title: ${article.title}, Body: ${article.body}`);
+	// 	});
+	// 	console.log('\n');
+	// });
+
+	// Update single data
+	const update = await prisma.user.update({
+		where: {
+			id: 1,
+		},
+		data: {
+			name: 'John Doe Jr.',
+		},
 	});
+	console.log(update);
+
+	// Delete single data
+	const remove = await prisma.article.delete({
+		where: {
+			id: 2,
+		},
+	});
+	console.log(remove);
+
+	// GET all articles
+	const getArticles = await prisma.article.findMany();
+	console.log(getArticles);
 };
 
 // call to run the function
